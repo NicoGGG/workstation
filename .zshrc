@@ -108,9 +108,10 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias pbcopy="xclip -sel clip"
 alias cat="bat"
+alias catp="bat -p"
 alias top="bpytop"
 alias n="nvim"
-alias vim=nvim
+alias vim="nvim"
 
 # Local nico PATH
 PATH=${PATH}:/home/nico/.local/bin
@@ -122,6 +123,7 @@ export PATH="$HOME/gems/bin:$PATH"
 # Golang
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$HOME/go/bin
+
 # Yarn
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
