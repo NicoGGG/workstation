@@ -112,6 +112,7 @@ alias catp="bat -p"
 alias top="bpytop"
 alias n="nvim"
 alias vim="nvim"
+alias c="clear"
 
 # Local nico PATH
 PATH=${PATH}:/home/nico/.local/bin
