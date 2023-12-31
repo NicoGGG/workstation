@@ -125,6 +125,9 @@ export PATH="$HOME/gems/bin:$PATH"
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$HOME/go/bin
 
+# Rust
+. "$HOME/.cargo/env"
+
 # Yarn
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 

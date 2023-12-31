@@ -31,6 +31,11 @@ install_all() {
     export PATH=$PATH:$HOME/go/bin
     echo -e "Installing go...done\n"
 
+    # Installing rust
+    echo -e "Installing rust..."
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    echo -e "Installing rust...done\n"
+
     # Install nodejs
     echo -e "Installing nodejs..."
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
