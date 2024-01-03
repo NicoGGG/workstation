@@ -117,6 +117,24 @@ alias c="clear"
 # Local nico PATH
 PATH=${PATH}:/home/nico/.local/bin
 
+## Python venv auto source
+# chpwd is a zsh hook, wich is executed after change directory
+# More info: http://zsh.sourceforge.net/Doc/Release/Functions.html
+function chpwd() {
+  if [ -z "$VIRTUAL_ENV" ]; then
+    # If exists a .venv (my venv directory name), load it!
+    if [[ -d ./.venv ]] ; then
+      source ./.venv/bin/activate
+    fi
+  fi
+}
+
+if [ -z "$VIRTUAL_ENV" ]; then
+  if [[ -d ./.venv ]] ; then
+    source ./.venv/bin/activate
+  fi
+fi
+
 # Install Ruby Gems to ~/gems
 export GEM_HOME="$HOME/gems"
 export PATH="$HOME/gems/bin:$PATH"
