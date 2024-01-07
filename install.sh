@@ -12,7 +12,7 @@ install_all() {
 
     # Some prerequisites
     echo -e "Installing prerequisites..."
-    sudo apt-get install -y ninja-build gettext cmake unzip curl wget
+    sudo apt-get install -y ninja-build gettext cmake unzip curl wget fzf
     mkdir -p ~/.config
     echo -e "Installing prerequisites...done\n"
 
@@ -78,7 +78,6 @@ install_all() {
     # Install tmux plugin manager
     echo -e "Installing tmux plugin manager..."
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-    ln -s $(pwd)/.tmux.conf ~/.tmux.conf
     echo -e "Installing tmux plugin manager...done\n"
     # Run tmux `tmux`
     # Press `prefix` + I (capital I, as in **I**nstall) to fetch the plugins

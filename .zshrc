@@ -77,9 +77,12 @@ plugins=(
     docker
     docker-compose
     dotenv
+    tmux
 )
 
 source $ZSH/oh-my-zsh.sh
+
+ZSH_TMUX_AUTOSTART=true
 
 # User configuration
 
@@ -162,6 +165,25 @@ esac
 
 alias p="pnpm"
 # pnpm end
+
+## Fuzzy finder
+
+fd() {
+    # Another fd - cd into the selected directory
+# This one differs from the above, by only showing the sub directories and not
+#  showing the directories within those.
+fd() {
+  DIR=`find * -maxdepth 0 -type d -print 2> /dev/null | fzf-tmux` \
+    && cd "$DIR"
+}
+
+_fd() {
+  fd
+  zle reset-prompt
+}
+
+zle -N _fd
+bindkey '^p' _fd
 
 # Nvm - MUST BE LAST
 export NVM_DIR="$HOME/.nvm"
