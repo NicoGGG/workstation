@@ -173,9 +173,8 @@ function _fd() {
     dir=$(find ${1:-.} -path '*/\.*' -prune \
         -o -type d -print 2> /dev/null | fzf +m) &&
         cd "$dir"
-    }
     zle reset-prompt
-
+}
 
 function _frg() {
     result=$(rg --ignore-case --color=always --line-number --no-heading -g '!*/**/{.git,node_modules}/*' . |
