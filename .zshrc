@@ -80,9 +80,9 @@ plugins=(
     tmux
 )
 
+ZSH_TMUX_AUTOSTART=true
 source $ZSH/oh-my-zsh.sh
 
-ZSH_TMUX_AUTOSTART=true
 
 # User configuration
 
@@ -93,9 +93,9 @@ ZSH_TMUX_AUTOSTART=true
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
+    export EDITOR='vim'
 else
-  export EDITOR='nvim'
+    export EDITOR='nvim'
 fi
 
 # Compilation flags
@@ -105,7 +105,7 @@ fi
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
+
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
@@ -124,18 +124,18 @@ PATH=${PATH}:/home/nico/.local/bin
 # chpwd is a zsh hook, wich is executed after change directory
 # More info: http://zsh.sourceforge.net/Doc/Release/Functions.html
 function chpwd() {
-  if [ -z "$VIRTUAL_ENV" ]; then
-    # If exists a .venv (my venv directory name), load it!
-    if [[ -d ./.venv ]] ; then
-      source ./.venv/bin/activate
+    if [ -z "$VIRTUAL_ENV" ]; then
+        # If exists a .venv (my venv directory name), load it!
+        if [[ -d ./.venv ]] ; then
+            source ./.venv/bin/activate
+        fi
     fi
-  fi
 }
 
 if [ -z "$VIRTUAL_ENV" ]; then
-  if [[ -d ./.venv ]] ; then
-    source ./.venv/bin/activate
-  fi
+    if [[ -d ./.venv ]] ; then
+        source ./.venv/bin/activate
+    fi
 fi
 
 # Install Ruby Gems to ~/gems
@@ -159,31 +159,45 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 # pnpm
 export PNPM_HOME="/home/nico/.local/share/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+    *":$PNPM_HOME:"*) ;;
+    *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
 alias p="pnpm"
 # pnpm end
 
-## Fuzzy finder
+## Fuzzy finder and file navigation
+# fd - cd to selected directory
+function _fd() {
+    local dir
+    dir=$(find ${1:-.} -path '*/\.*' -prune \
+        -o -type d -print 2> /dev/null | fzf +m) &&
+        cd "$dir"
+    }
+    zle reset-prompt
 
-fd() {
-    # Another fd - cd into the selected directory
-# This one differs from the above, by only showing the sub directories and not
-#  showing the directories within those.
-fd() {
-  DIR=`find * -maxdepth 0 -type d -print 2> /dev/null | fzf-tmux` \
-    && cd "$DIR"
+
+function _frg() {
+    result=$(rg --ignore-case --color=always --line-number --no-heading -g '!*/**/{.git,node_modules}/*' . |
+        fzf --ansi \
+        --color 'hl:-1:underline,hl+:-1:underline:reverse' \
+        --delimiter ':' \
+        --preview "bat --color=always {1} --theme='Solarized (light)' --highlight-line {2}" \
+        --preview-window 'up,60%,border-bottom,+{2}+3/3,~3')
+    file=${result%%:*}
+    linenumber=$(echo "${result}" | cut -d: -f2)
+    if [[ -n "$file" ]]; then
+        if [[ "$EDITOR" == "nvim" ]]; then
+            $EDITOR +"${linenumber}" "$file"
+        fi
+    fi
 }
 
-_fd() {
-  fd
-  zle reset-prompt
-}
 
 zle -N _fd
-bindkey '^p' _fd
+zle -N _frg
+bindkey "^p" _fd
+bindkey "^g" _frg
 
 # Nvm - MUST BE LAST
 export NVM_DIR="$HOME/.nvm"

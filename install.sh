@@ -12,7 +12,7 @@ install_all() {
 
     # Some prerequisites
     echo -e "Installing prerequisites..."
-    sudo apt-get install -y ninja-build gettext cmake unzip curl wget fzf
+    sudo apt-get install -y ninja-build gettext cmake unzip curl wget fzf fd-find ripgrep
     mkdir -p ~/.config
     echo -e "Installing prerequisites...done\n"
 
