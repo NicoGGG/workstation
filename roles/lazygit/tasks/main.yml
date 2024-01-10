@@ -1,0 +1,28 @@
+---
+- name: LazyGit | Verify that go is installed and accessible
+  ansible.builtin.command:
+    cmd: /usr/local/go/bin/go version
+  register: go_version_check
+  ignore_errors: true
+
+- name: LazyGit | Install
+  when: go_version_check.rc == 0
+  block:
+    - name: LazyGit | install with go
+      ansible.builtin.command:
+        cmd: /usr/local/go/bin/go install github.com/jesseduffield/lazygit@latest
+        chdir: "{{ ansible_user_dir }}"
+
+    - name: LazyGit | Create config dir
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/.config/lazygit"
+        state: directory
+        recurse: true
+        mode: "0755"
+      register: lazygit_config_dir
+
+    - name: LazyGit | Copy config
+      ansible.builtin.copy:
+        src: config.yml
+        dest: "{{ lazygit_config_dir.path }}/config.yml"
+        mode: "0644"

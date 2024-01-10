@@ -1,0 +1,84 @@
+---
+- name: System | Update APT Repos and Upgrade APT Packages
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: full
+    autoremove: true
+    autoclean: true
+  become: true
+
+- name: System | Get uname -r variable
+  ansible.builtin.shell:
+    cmd: "uname -r"
+  register: uname_cmd
+
+- name: System | Set uname
+  ansible.builtin.set_fact:
+    uname: "{{ uname_cmd.stdout }}"
+
+- name: System | Install prerequisistes
+  ansible.builtin.apt:
+    name:
+      - build-essential
+      - dkms
+      - "linux-headers-{{ uname }}"
+      - jq
+      - ninja-build
+      - gettext
+      - cmake
+      - unzip
+      - curl
+      - wget
+      - xclip
+      - fzf
+      - fd-find
+      - ripgrep
+      - bat
+  become: true
+
+- name: System | Create ~/.local/bin folder
+  ansible.builtin.file:
+    recurse: true
+    dest: "{{ ansible_user_dir }}/.local/bin"
+
+- name: System | Create batsymlink
+  ansible.builtin.file:
+    state: link
+    src: /usr/bin/batcat
+    dest: "{{ ansible_user_dir }}/.local/bin/bat"
+    mode: "0755"
+
+- name: System | Set sudo
+  ansible.builtin.template:
+    src: user-sudo.j2
+    dest: "/etc/sudoers.d/{{ ansible_env['USER'] }}"
+    mode: "0644"
+  become: true
+
+- name: System | Create Background Image folder
+  ansible.builtin.file:
+    dest: "~/Pictures/Background"
+    recurse: true
+  register: background_image_folder
+
+- name: System | Copy Desktop Background Image
+  ansible.builtin.copy:
+    src: dark_souls.png
+    dest: "{{ background_image_folder.path }}"
+    mode: "0644"
+  become: true
+  register: background_image
+
+- name: System | Set Background Image uri
+  ansible.builtin.set_fact:
+    background_image_uri: "'file://{{ background_image.dest }}'"
+
+- name: System | Check Desktop Background Image
+  ansible.builtin.command:
+    cmd: "gsettings get org.gnome.desktop.background picture-uri-dark"
+  register: current_bg_image
+
+- name: System | Set Desktop Background Image
+  ansible.builtin.shell:
+    cmd: "gsettings set org.gnome.desktop.background picture-uri-dark {{ background_image_uri }}"
+  when: background_image.dest not in current_bg_image.stdout_lines

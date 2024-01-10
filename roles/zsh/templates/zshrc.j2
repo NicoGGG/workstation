@@ -138,10 +138,6 @@ if [ -z "$VIRTUAL_ENV" ]; then
     fi
 fi
 
-# Install Ruby Gems to ~/gems
-export GEM_HOME="$HOME/gems"
-export PATH="$HOME/gems/bin:$PATH"
-
 # Golang
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$HOME/go/bin
@@ -151,20 +147,6 @@ export PATH=$PATH:$HOME/go/bin
 
 # Yarn
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
-# Deno
-export DENO_INSTALL="/home/nico/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
-
-# pnpm
-export PNPM_HOME="/home/nico/.local/share/pnpm"
-case ":$PATH:" in
-    *":$PNPM_HOME:"*) ;;
-    *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-
-alias p="pnpm"
-# pnpm end
 
 ## Fuzzy finder and file navigation
 # fd - cd to selected directory
@@ -202,3 +184,4 @@ bindkey "^g" _frg
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+

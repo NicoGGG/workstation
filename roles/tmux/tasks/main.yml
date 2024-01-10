@@ -1,0 +1,20 @@
+---
+- name: Tmux | Install tmux
+  ansible.builtin.apt:
+    name: tmux
+    state: present
+  become: true
+
+- name: Tmux | Install Tmux Plugin Manager
+  ansible.builtin.git:
+    repo: git@github.com:tmux-plugins/tpm
+    dest: ~/.tmux/plugins/tpm
+    accept_hostkey: true
+
+- name: Tmux | Configure tmux
+  ansible.builtin.copy:
+    src: tmux.conf
+    dest: "{{ ansible_user_dir }}/.tmux.conf"
+    mode: "0644"
+    directory_mode: "0755"
+    force: true

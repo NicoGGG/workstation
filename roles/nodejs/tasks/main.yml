@@ -1,0 +1,21 @@
+---
+- name: NodeJs | Using NodeJS setup script
+  ansible.builtin.shell:
+    cmd: "curl -fsSL https://deb.nodesource.com/setup_{{ node_version }}.x | sudo -E bash -"
+  become: true
+
+- name: NodeJs | Install Node.js
+  ansible.builtin.apt:
+    name:
+      - nodejs
+    state: present
+  become: true
+
+- name: NodeJS | Get version
+  ansible.builtin.shell:
+    cmd: node -v && npm -v
+  register: npm_version
+
+- name: NodeJS | Display version
+  ansible.builtin.debug:
+    msg: "{{ npm_version.stdout }}"

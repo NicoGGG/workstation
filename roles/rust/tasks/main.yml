@@ -1,0 +1,12 @@
+---
+- name: Rust | Download Rust install script
+  ansible.builtin.get_url:
+    url: https://sh.rustup.rs
+    dest: /tmp/sh.rustup.rs
+    mode: "0755"
+  register: rust_install_script
+
+- name: Rust | Install from script
+  ansible.builtin.shell:
+    cmd: "{{ rust_install_script.dest }} -y"
+    executable: /bin/sh
