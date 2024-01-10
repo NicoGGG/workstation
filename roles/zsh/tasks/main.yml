@@ -1,0 +1,32 @@
+---
+- name: ZSH | Install Zsh
+  ansible.builtin.apt:
+    name:
+      - zsh
+      - zsh-doc
+  become: true
+
+- name: ZSH | Set Zsh default shell
+  ansible.builtin.user:
+    name: "{{ ansible_env['USER'] }}"
+    shell: /usr/bin/zsh
+  become: true
+
+- name: ZSH | Clone oh-my-zsh repo
+  ansible.builtin.git:
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
+    dest: "{{ ansible_user_dir }}/.oh-my-zsh"
+    ssh_opts:
+      - “-o StrictHostKeyChecking=accept_hostkey"
+
+- name: ZSH | Copy zshrc
+  ansible.builtin.template:
+    src: zshrc.j2
+    dest: "{{ ansible_user_dir }}/.zshrc"
+    mode: "0600"
+
+- name: ZSH | Copy zprofile
+  ansible.builtin.copy:
+    src: zprofile
+    dest: "{{ ansible_user_dir }}/.zprofile"
+    mode: "0600"

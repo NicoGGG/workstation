@@ -1,0 +1,30 @@
+---
+- name: "Install XFCE Terminal"
+  ansible.builtin.apt:
+    name:
+      - xfce4-terminal
+  become: true
+
+- name: "Create XFCE config folder"
+  ansible.builtin.file:
+    state: directory
+    recurse: true
+    dest: "~/.config/xfce4/terminal/"
+  register: xfce_config
+
+- name: "Set fact for xfce config directory"
+  ansible.builtin.set_fact:
+    xfce_directory: "{{ xfce_config.path }}"
+
+- name: "Copy terminal background image"
+  ansible.builtin.copy:
+    src: "firekeeper_background_1920x1080.png"
+    dest: "{{ xfce_directory }}"
+    mode: "0644"
+  register: background_image
+
+- name: "Copy XFCE Terminal config"
+  ansible.builtin.template:
+    src: "xfce-terminal.j2"
+    dest: "{{ xfce_directory }}/terminalrc"
+    mode: "0644"

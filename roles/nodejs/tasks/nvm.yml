@@ -1,0 +1,25 @@
+---
+- name: NodeJS | Create tmp NVM install dir
+  ansible.builtin.file:
+    dest: /tmp/nvm
+    state: directory
+    recurse: true
+    mode: "0755"
+  register: nvm_tmp_dir
+
+- name: NodeJS | Download NVM
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh
+    dest: "{{ nvm_tmp_dir.path }}/install.sh"
+    mode: "0755"
+
+- name: NodeJS | Install NVM
+  ansible.builtin.shell:
+    cmd: ./install.sh
+    chdir: "{{ nvm_tmp_dir.path }}"
+  tags: ["never"]
+
+- name: NodeJS | Install NodeJS 18
+  ansible.builtin.shell:
+    cmd: nvm install 18 && nvm use 18
+    executable: /bin/zsh

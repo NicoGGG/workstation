@@ -1,0 +1,30 @@
+---
+- name: "Neovim | Dependencies"
+  ansible.builtin.apt:
+    name:
+      - cmake
+      - curl
+      - pkg-config
+      - libtool
+      - unzip
+      - ansible-lint
+      - ripgrep
+    state: present
+  become: true
+
+- name: Neovim | Git clone neovim
+  ansible.builtin.git:
+    repo: https://github.com/neovim/neovim
+    dest: /tmp/neovim
+  register: neovim_repo
+
+- name: Neovim | Run 'install' target as root
+  community.general.make:
+    chdir: "/tmp/neovim"
+    target: install
+  become: true
+
+- name: Neovim | Get config from my neovim repo
+  ansible.builtin.git:
+    repo: https://github.com/NicoGGG/nvim
+    dest: "{{ ansible_user_dir }}/.config/nvim"

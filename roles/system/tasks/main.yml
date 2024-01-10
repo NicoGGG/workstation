@@ -1,0 +1,85 @@
+---
+- name: System | Update APT Repos and Upgrade APT Packages
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: full
+    state: latest
+    autoremove: true
+    autoclean: true
+  become: true
+
+- name: Get uname -r variable
+  ansible.builtin.shell:
+    cmd: "uname -r"
+  register: uname_cmd
+
+- name: Set uname
+  ansible.builtin.set_fact:
+    uname: "{{ uname_cmd.stdout }}"
+
+- name: Install prerequisistes
+  ansible.builtin.apt:
+    name:
+      - build-essential
+      - dkms
+      - "linux-headers-{{ uname }}"
+      - jq
+      - ninja-build
+      - gettext
+      - cmake
+      - unzip
+      - curl
+      - wget
+      - xclip
+      - fzf
+      - fd-find
+      - ripgrep
+      - bat
+  become: true
+
+- name: Create ~/.local/bin folder
+  ansible.builtin.file:
+    recurse: true
+    dest: "{{ ansible_user_dir }}/.local/bin"
+
+- name: Create batsymlink
+  ansible.builtin.file:
+    state: link
+    src: /usr/bin/batcat
+    dest: "{{ ansible_user_dir }}/.local/bin/bat"
+    mode: "0755"
+
+- name: System | Set sudo
+  ansible.builtin.template:
+    src: user-sudo.j2
+    dest: "/etc/sudoers.d/{{ ansible_env['USER'] }}"
+    mode: "0644"
+  become: true
+
+- name: Create Background Image folder
+  ansible.builtin.file:
+    dest: "~/Pictures/Background"
+    recurse: true
+  register: background_image_folder
+
+- name: Copy Desktop Background Image
+  ansible.builtin.copy:
+    src: dark_souls.png
+    dest: "/usr/share/background/"
+    mode: "0644"
+  become: true
+  register: background_image
+
+- name: Set Background Image uri
+  ansible.builtin.set_fact:
+    background_image_uri: "'file://{{ background_image.dest }}'"
+
+- name: Check Desktop Background Image
+  ansible.builtin.command:
+    cmd: "gsettings get org.gnome.desktop.background picture-uri-dark"
+  register: current_bg_image
+
+- name: Set Desktop Background Image
+  ansible.builtin.shell:
+    cmd: "gsettings set org.gnome.desktop.background picture-uri-dark {{ background_image_uri }}"
+  when: background_image.dest in current_bg_image.stdout_lines
