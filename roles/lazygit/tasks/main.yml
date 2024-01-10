@@ -8,7 +8,7 @@
 - name: LazyGit | Install
   when: go_version_check.rc == 0
   block:
-    - name: Golang install Lazygit
+    - name: LazyGit | install with go
       ansible.builtin.command:
         cmd: /usr/local/go/bin/go install github.com/jesseduffield/lazygit@latest
         chdir: "{{ ansible_user_dir }}"

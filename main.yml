@@ -5,7 +5,7 @@
   tasks:
     - name: Set host_user
       ansible.builtin.set_fact:
-        host_user: "{{ ansible_env['HOST'] }}"
+        host_user: "{{ ansible_env['USER'] }}"
       when: host_user is not defined
       tags:
         - always

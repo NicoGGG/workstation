@@ -9,6 +9,7 @@
   ansible.builtin.git:
     repo: git@github.com:tmux-plugins/tpm
     dest: ~/.tmux/plugins/tpm
+    accept_hostkey: true
 
 - name: "Tmux | Configure tmux"
   ansible.builtin.copy:

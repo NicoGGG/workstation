@@ -16,6 +16,8 @@
   ansible.builtin.git:
     repo: git@github.com:neovim/neovim.git
     dest: /tmp/neovim
+    accept_hostkey: true
+
   register: neovim_repo
 
 - name: Neovim | Run 'install' target as root
@@ -28,3 +30,4 @@
   ansible.builtin.git:
     repo: git@github.com:NicoGGG/nvim.git
     dest: "{{ ansible_user_dir }}/.config/nvim"
+    accept_hostkey: true

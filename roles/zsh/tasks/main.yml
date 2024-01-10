@@ -16,8 +16,7 @@
   ansible.builtin.git:
     repo: git@github.com:ohmyzsh/ohmyzsh.git
     dest: "{{ ansible_user_dir }}/.oh-my-zsh"
-    ssh_opts:
-      - “-o StrictHostKeyChecking=accept_hostkey"
+    accept_hostkey: true
 
 - name: ZSH | Copy zshrc
   ansible.builtin.template:
