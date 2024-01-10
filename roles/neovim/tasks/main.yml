@@ -17,7 +17,6 @@
     repo: git@github.com:neovim/neovim.git
     dest: /tmp/neovim
     accept_hostkey: true
-
   register: neovim_repo
 
 - name: Neovim | Run 'install' target as root

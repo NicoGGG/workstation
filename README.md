@@ -11,3 +11,9 @@
 ```bash
 ./install.sh -s
 ```
+
+## Install with ansible
+
+```bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/NicoGGG/workstation/ansible/workstation.sh)"
+```

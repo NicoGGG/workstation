@@ -1,5 +1,5 @@
 ---
-- name: "Download Proto Font"
+- name: Protofont | Download Proto Font
   ansible.builtin.get_url:
     url: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/0xProto.zip"
     dest: "/tmp"
@@ -7,22 +7,22 @@
     mode: "0755"
   register: protofont
 
-- name: "Set variable protofont_dest"
+- name: Protofont | Set variable protofont_dest
   ansible.builtin.set_fact:
     protofont_dest: "{{ protofont.dest }}"
 
-- name: "Create font dir"
+- name: Protofont | Create font dir
   ansible.builtin.file:
     path: "~/.local/share/fonts/"
     state: directory
     recurse: true
 
-- name: "Unzip Proto font in ~/.local/share/fonts"
+- name: Protofont | Unzip Proto font in ~/.local/share/fonts
   ansible.builtin.unarchive:
     src: "{{ protofont_dest }}"
     remote_src: true
     dest: "~/.local/share/fonts/"
 
-- name: "Source fonts"
+- name: Protofont | Source fonts
   ansible.builtin.shell:
     cmd: "fc-cache -fv"

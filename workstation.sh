@@ -78,7 +78,7 @@ fi
 
 # Clone repository
 if ! [[ -d "$WORKSTATION_DIR" ]]; then
-    echo -e "${ARROW} ${CYAN}Cloning repository: ${YELLOW}github.com/TechDufus/dotfiles${NC}"
+    echo -e "${ARROW} ${CYAN}Cloning repository: ${YELLOW}github.com/NicoGGG/workstation${NC}"
     git clone --quiet "https://github.com/NicoGGG/workstation.git" "$WORKSTATION_DIR" 2>&1 > /dev/null
 else
     echo -e "${ARROW} ${CYAN}Updating repository: ${YELLOW}github.com/NicoGGG/workstation${NC}"
