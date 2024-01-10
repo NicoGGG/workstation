@@ -14,7 +14,7 @@
 
 - name: ZSH | Clone oh-my-zsh repo
   ansible.builtin.git:
-    repo: https://github.com/ohmyzsh/ohmyzsh.git
+    repo: git@github.com:ohmyzsh/ohmyzsh.git
     dest: "{{ ansible_user_dir }}/.oh-my-zsh"
     ssh_opts:
       - “-o StrictHostKeyChecking=accept_hostkey"

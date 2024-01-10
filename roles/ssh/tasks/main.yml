@@ -8,3 +8,7 @@
   loop_control:
     loop_var: ssh_key_item
   with_items: "{{ ssh_key | default({}) | dict2items }}"
+
+- name: SSH | Restart ssh-agent
+  ansible.builtin.command:
+    cmd: ssh-agent -k ; eval "$(ssh-agent)"

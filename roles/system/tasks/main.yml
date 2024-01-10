@@ -82,4 +82,4 @@
 - name: Set Desktop Background Image
   ansible.builtin.shell:
     cmd: "gsettings set org.gnome.desktop.background picture-uri-dark {{ background_image_uri }}"
-  when: background_image.dest in current_bg_image.stdout_lines
+  when: background_image.dest not in current_bg_image.stdout_lines

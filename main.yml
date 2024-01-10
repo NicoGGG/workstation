@@ -3,6 +3,13 @@
   hosts: localhost
   connection: local
   tasks:
+    - name: Set host_user
+      ansible.builtin.set_fact:
+        host_user: "{{ ansible_env['HOST'] }}"
+      when: host_user is not defined
+      tags:
+        - always
+
     - name: Set roles
       ansible.builtin.set_fact:
         run_roles: "{{ ansible_run_tags != ['all'] and ansible_run_tags or default_roles | difference(exclude_roles | default([])) }}"

@@ -9,10 +9,9 @@
   when: go_version_check.rc == 0
   block:
     - name: Golang install Lazygit
-      ansible.builtin.shell:
+      ansible.builtin.command:
         cmd: /usr/local/go/bin/go install github.com/jesseduffield/lazygit@latest
         chdir: "{{ ansible_user_dir }}"
-        executable: /bin/zsh
 
     - name: LazyGit | Create config dir
       ansible.builtin.file:

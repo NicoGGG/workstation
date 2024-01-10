@@ -106,13 +106,10 @@
         remote_src: true
         src: /tmp/go
         dest: /usr/local/
-        owner: "{{ ansible_user }}"
-        group: "{{ ansible_user }}"
+        owner: "{{ host_user }}"
+        group: "{{ host_user }}"
         force: true
         mode: "0755"
       become: true
       notify:
         - Remove extracted go directory
-
-- name: Install Packages
-  ansible.builtin.import_tasks: packages.yml

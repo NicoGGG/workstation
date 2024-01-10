@@ -10,6 +10,8 @@ default_roles:
   - neovim
   - zsh
   - lazygit
+  - tmux
+  - rust
 
 node_version: 18
 go:
