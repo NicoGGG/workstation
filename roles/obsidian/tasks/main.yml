@@ -45,3 +45,13 @@
     src: obsidian.desktop.j2
     dest: "{{ ansible_user_dir }}/.local/share/applications/obsidian.desktop"
     mode: "0755"
+
+###########################################################################
+### This base config folder content needs to be copied to the .obsidian ###
+### folder once the vault has been created (vault creation is manual)   ###
+###########################################################################
+- name: Obsidian | Copy base config
+  ansible.builtin.copy:
+    src: base-config
+    dest: "{{ obsidian_dir.path }}/base-config"
+    mode: "0755"
