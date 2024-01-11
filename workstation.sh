@@ -26,6 +26,12 @@ WORKSTATION_DIR="$HOME/.workstation"
 SSH_DIR="$HOME/.ssh"
 IS_FIRST_RUN="$HOME/.workstation_first_run"
 
+# Install git
+if ! dpkg -s git >/dev/null 2>&1; then
+    echo -e "${ARROW} ${CYAN}Installing Git...${NC}"
+    sudo apt-get install -y git 2>&1 > /dev/null
+    echo -e "${ARROW} ${GREEN}Git installed!${NC}"
+fi
 # Install Ansible
 # check lsb_release -si
 if ! dpkg -s ansible >/dev/null 2>&1; then

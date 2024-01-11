@@ -1,17 +1,17 @@
 ---
-- name: "Tmux | Install tmux"
+- name: Tmux | Install tmux
   ansible.builtin.apt:
     name: tmux
     state: present
   become: true
 
-- name: "Tmux | Install TPM"
+- name: Tmux | Install Tmux Plugin Manager
   ansible.builtin.git:
     repo: git@github.com:tmux-plugins/tpm
     dest: ~/.tmux/plugins/tpm
     accept_hostkey: true
 
-- name: "Tmux | Configure tmux"
+- name: Tmux | Configure tmux
   ansible.builtin.copy:
     src: tmux.conf
     dest: "{{ ansible_user_dir }}/.tmux.conf"
