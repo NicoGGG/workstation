@@ -1,0 +1,47 @@
+---
+- name: Obsidian | Install Fuse
+  ansible.builtin.apt:
+    name: libfuse2
+  become: true
+
+- name: Obsidian | Create Obsidian dir
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/Obsidian"
+    state: directory
+    recurse: true
+    mode: "0755"
+  register: obsidian_dir
+
+- name: Obsidian | Get AppImage
+  ansible.builtin.get_url:
+    url: https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.3/Obsidian-1.5.3.AppImage
+    dest: "{{ obsidian_dir.path }}"
+    mode: "0755"
+  register: obsidian_app_image
+
+- name: Obsidian | Set obsidian_app_image_path
+  ansible.builtin.set_fact:
+    obsidian_app_image_path: "{{ obsidian_app_image.dest }}"
+
+- name: Obsidian | Create link
+  ansible.builtin.file:
+    src: "{{ obsidian_app_image_path }}"
+    path: "{{ ansible_user_dir }}/.local/bin/obsidian"
+    state: link
+
+- name: Obsidian | Copy icon
+  ansible.builtin.copy:
+    src: obsidian-icon.png
+    dest: "{{ obsidian_dir.path }}/obsidian-icon.png"
+    mode: "0664"
+  register: obsidian_icon
+
+- name: Obsidian | Set obsidian_icon_dest
+  ansible.builtin.set_fact:
+    obsidian_icon_dest: "{{ obsidian_icon.dest }}"
+
+- name: Obsidian | Register as Desktop App
+  ansible.builtin.template:
+    src: obsidian.desktop.j2
+    dest: "{{ ansible_user_dir }}/.local/share/applications/obsidian.desktop"
+    mode: "0755"
