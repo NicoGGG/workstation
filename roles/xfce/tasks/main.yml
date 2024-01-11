@@ -12,6 +12,12 @@
     dest: "~/.config/xfce4/terminal/"
   register: xfce_config
 
+- name: System | Create Background Image folder
+  ansible.builtin.file:
+    dest: "~/Pictures/Background"
+    recurse: true
+  register: background_image_folder
+
 - name: XFCE | Set fact for xfce config directory
   ansible.builtin.set_fact:
     xfce_directory: "{{ xfce_config.path }}"
@@ -19,7 +25,7 @@
 - name: XFCE | Copy terminal background image
   ansible.builtin.copy:
     src: "firekeeper_background_1920x1080.png"
-    dest: "{{ xfce_directory }}"
+    dest: "{{ background_image_folder }}"
     mode: "0644"
   register: background_image
 

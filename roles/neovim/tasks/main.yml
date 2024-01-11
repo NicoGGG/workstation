@@ -12,16 +12,25 @@
     state: present
   become: true
 
-- name: Neovim | Git clone neovim
+- name: Neovim | Create install dir
+  ansible.builtin.file:
+    path: /opt/neovim
+    mode: "0755"
+    owner: "{{ host_user }}"
+    group: "{{ host_user }}"
+    state: directory
+  become: true
+
+- name: Neovim | Git clone/pull neovim latest
   ansible.builtin.git:
     repo: git@github.com:neovim/neovim.git
-    dest: /tmp/neovim
+    dest: /opt/neovim
     accept_hostkey: true
   register: neovim_repo
 
 - name: Neovim | Run 'install' target as root
   community.general.make:
-    chdir: "/tmp/neovim"
+    chdir: "/opt/neovim"
     target: install
   become: true
 

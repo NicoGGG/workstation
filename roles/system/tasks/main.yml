@@ -3,7 +3,6 @@
   ansible.builtin.apt:
     update_cache: true
     upgrade: full
-    state: latest
     autoremove: true
     autoclean: true
   become: true
@@ -65,7 +64,7 @@
 - name: System | Copy Desktop Background Image
   ansible.builtin.copy:
     src: dark_souls.png
-    dest: "/usr/share/background/"
+    dest: "{{ background_image_folder.path }}"
     mode: "0644"
   become: true
   register: background_image

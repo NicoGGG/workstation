@@ -1,6 +1,0 @@
-gui:
-  sidePanelWidth: 0.25
-  mainPanelSplitMode: "horizontal"
-  nerdFontsVersion: "3"
-os:
-  editPreset: "nvim"

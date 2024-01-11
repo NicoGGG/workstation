@@ -12,12 +12,9 @@ default_roles:
   - lazygit
   - tmux
   - rust
+  - obsidian
 
 node_version: 18
-go:
-  packages:
-    - package: github.com/jesseduffield/lazygit@latest
-      cmd: lazygit
 
 git_user_name: "NicoGGG"
 git_user_email: !vault |
