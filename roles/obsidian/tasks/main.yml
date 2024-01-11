@@ -49,9 +49,10 @@
 ###########################################################################
 ### This base config folder content needs to be copied to the .obsidian ###
 ### folder once the vault has been created (vault creation is manual)   ###
+### Then the folder "dailies" also needs to be created in the vault dir ###
 ###########################################################################
 - name: Obsidian | Copy base config
   ansible.builtin.copy:
     src: base-config
-    dest: "{{ obsidian_dir.path }}/base-config"
+    dest: "{{ obsidian_dir.path }}"
     mode: "0755"
