@@ -23,9 +23,3 @@
     src: zshrc.j2
     dest: "{{ ansible_user_dir }}/.zshrc"
     mode: "0600"
-
-- name: ZSH | Copy zprofile
-  ansible.builtin.copy:
-    src: zprofile
-    dest: "{{ ansible_user_dir }}/.zprofile"
-    mode: "0600"

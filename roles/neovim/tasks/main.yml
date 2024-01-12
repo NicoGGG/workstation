@@ -25,6 +25,7 @@
   ansible.builtin.git:
     repo: git@github.com:neovim/neovim.git
     dest: /opt/neovim
+    force: true
     accept_hostkey: true
   register: neovim_repo
 

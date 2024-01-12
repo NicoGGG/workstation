@@ -13,7 +13,7 @@
 
 - name: Protofont | Create font dir
   ansible.builtin.file:
-    path: "~/.local/share/fonts/"
+    path: "{{ ansible_user_dir }}/.local/share/fonts/"
     state: directory
     recurse: true
 
@@ -21,7 +21,7 @@
   ansible.builtin.unarchive:
     src: "{{ protofont_dest }}"
     remote_src: true
-    dest: "~/.local/share/fonts/"
+    dest: "{{ ansible_user_dir }}/.local/share/fonts/"
 
 - name: Protofont | Source fonts
   ansible.builtin.shell:
