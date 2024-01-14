@@ -11,6 +11,11 @@
     dest: ~/.tmux/plugins/tpm
     accept_hostkey: true
 
+- name: Install py libtmux
+  ansible.builtin.pip:
+    name:
+      - libtmux
+
 - name: Tmux | Configure tmux
   ansible.builtin.copy:
     src: tmux.conf
