@@ -1,0 +1,71 @@
+---
+- name: Pass | Install pass
+  ansible.builtin.apt:
+    name:
+      - pass
+
+- name: Pass | Download pass archive on github
+  ansible.builtin.get_url:
+    url: https://github.com/browserpass/browserpass-native/releases/download/3.1.0/browserpass-linux64-3.1.0.tar.gz
+    dest: /tmp
+    mode: "0755"
+  register: browser_pass_native_download
+
+- name: Pass | Untar downloaded archive
+  ansible.builtin.unarchive:
+    src: "{{ browser_pass_native_download.dest }}"
+    remote_src: true
+    dest: /tmp
+  register: browser_pass_unarchive
+
+- name: Pass | Configure preinstall
+  ansible.builtin.make:
+    chdir: "{{ browser_pass_unarchive.dest }}/browserpass-linux64-3.1.0"
+    target: configure
+    params:
+      BIN: browserpass-linux64
+
+- name: Pass | Install
+  ansible.builtin.make:
+    chdir: "{{ browser_pass_unarchive.dest }}/browserpass-linux64-3.1.0"
+    target: install
+    params:
+      BIN: browserpass-linux64
+  become: true
+
+- name: Pass | Clone/Update password-store
+  ansible.builtin.git:
+    repo: git@github.com:NicoGGG/pass-store.git
+    dest: "{{ ansible_user_dir }}/.password-store"
+
+- name: Pass | Create .gpg dir
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.gpg"
+    state: directory
+    mode: "0700"
+  register: gpg_dir
+
+- name: Pass | Copy gpg keys
+  ansible.builtin.copy:
+    dest: "{{ gpg_dir.path }}/{{ gpg_key_item.key }}"
+    content: "{{ gpg_key_item.value }}"
+    mode: "0600"
+  no_log: true
+  loop_control:
+    loop_var: gpg_key_item
+  with_items: "{{ gpg_key | default({}) | dict2items }}"
+
+- name: Pass | Import gpg private
+  ansible.builtin.command:
+    cmd: gpg --passphrase {{ gpg_pass }} --import {{ gpg_dir.path }}/gpg
+
+- name: Pass | Import gpg public
+  ansible.builtin.command:
+    cmd: gpg --import {{ gpg_dir.path }}/gpg.pub
+
+- name: Pass | Configure webext-browserpass
+  ansible.builtin.make:
+    chdir: /usr/lib/browserpass
+    targets:
+      - hosts-chrome-user
+      - hosts-firefox-user
