@@ -5,6 +5,9 @@
       - git
   become: true
 
+- name: Git | Include secret vars
+  ansible.builtin.include_vars: secret.yml
+
 - name: "Git | Set init.defaultBranch"
   community.general.git_config:
     name: init.defaultBranch

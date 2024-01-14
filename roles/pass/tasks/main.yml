@@ -47,6 +47,9 @@
     mode: "0700"
   register: gpg_dir
 
+- name: Git | Include secret vars
+  ansible.builtin.include_vars: secret.yml
+
 - name: Pass | Copy gpg keys
   ansible.builtin.copy:
     dest: "{{ gpg_dir.path }}/{{ gpg_key_item.key }}"
@@ -59,7 +62,7 @@
 
 - name: Pass | Import gpg private
   ansible.builtin.command:
-    cmd: gpg --passphrase {{ gpg_pass }} --import {{ gpg_dir.path }}/gpg
+    cmd: gpg --passphrase {{ gpg_pass }} --import --batch {{ gpg_dir.path }}/gpg
 
 - name: Pass | Import gpg public
   ansible.builtin.command:
