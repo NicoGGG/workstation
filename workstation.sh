@@ -105,7 +105,11 @@ if [[ -f $VAULT_SECRET ]]; then
     ansible-playbook --vault-password-file $VAULT_SECRET "$WORKSTATION_DIR/main.yml" "$@"
 else
     echo -e "${WARNING} ${CYAN}Vault config file not found...${NC}"
-    ansible-playbook "$WORKSTATION_DIR/main.yml" "$@"
+    if ! [[ -f $IS_FIRST_RUN ]]; then
+        mkdir -p -m 700 $HOME/.ansible-vault
+    echo -e "${WARNING} ${CYAN}Create vault pass file in ~/.ansible-vault${NC}"
+    else
+        ansible-playbook "$WORKSTATION_DIR/main.yml" "$@"
 fi
 
 popd 2>&1 > /dev/null
