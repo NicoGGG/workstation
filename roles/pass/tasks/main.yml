@@ -3,6 +3,8 @@
   ansible.builtin.apt:
     name:
       - pass
+      - wl-clipboard
+  become: true
 
 - name: Pass | Download pass archive on github
   ansible.builtin.get_url:
