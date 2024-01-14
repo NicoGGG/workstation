@@ -3,6 +3,7 @@ default_roles:
   - protofont
   - xfce
   - ssh
+  - pass
   - git
   - go
   - nodejs

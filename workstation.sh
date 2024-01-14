@@ -107,9 +107,10 @@ else
     echo -e "${WARNING} ${CYAN}Vault config file not found...${NC}"
     if ! [[ -f $IS_FIRST_RUN ]]; then
         mkdir -p -m 700 $HOME/.ansible-vault
-    echo -e "${WARNING} ${CYAN}Create vault pass file in ~/.ansible-vault${NC}"
+    echo -e "${WARNING} ${CYAN}Create vault pass file in ~/.ansible-vault. Next time this script is executed the playbook will run even without the vault file${NC}"
     else
         ansible-playbook "$WORKSTATION_DIR/main.yml" "$@"
+    fi
 fi
 
 popd 2>&1 > /dev/null
