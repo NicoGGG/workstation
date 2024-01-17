@@ -20,6 +20,7 @@
   ansible.builtin.apt:
     name:
       - build-essential
+      - gnome-tweaks
       - dkms
       - "linux-headers-{{ uname }}"
       - jq
@@ -74,12 +75,18 @@
   ansible.builtin.set_fact:
     background_image_uri: "'file://{{ background_image.dest }}'"
 
-- name: System | Check Desktop Background Image
-  ansible.builtin.command:
-    cmd: "gsettings get org.gnome.desktop.background picture-uri-dark"
-  register: current_bg_image
-
 - name: System | Set Desktop Background Image
-  ansible.builtin.shell:
-    cmd: "gsettings set org.gnome.desktop.background picture-uri-dark {{ background_image_uri }}"
-  when: background_image_uri not in current_bg_image.stdout_lines
+  community.general.dconf:
+    key: "/org/gnome/desktop/background/picture-uri-dark"
+    value: "{{ background_image_uri }}"
+    state: present
+
+- name: System | Set Caps Lock to Esc | Set fact value
+  ansible.builtin.set_fact:
+    xkb_options_caps_to_esc: "['grp_led:scroll', 'caps:escape_shifted_capslock']"
+
+- name: System | Set Caps Lock to Esc | Set setting value
+  community.general.dconf:
+    key: "/org/gnome/desktop/input-sources/xkb-options"
+    value: "{{ xkb_options_caps_to_esc }}"
+    state: present
