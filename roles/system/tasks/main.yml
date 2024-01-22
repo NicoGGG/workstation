@@ -37,6 +37,12 @@
       - bat
   become: true
 
+
+- name: System | Install psutil
+  ansible.builtin.pip:
+    name:
+      - psutil
+
 - name: System | Create ~/.local/bin folder
   ansible.builtin.file:
     state: directory

@@ -39,6 +39,7 @@
   ansible.builtin.git:
     repo: git@github.com:NicoGGG/pass-store.git
     dest: "{{ ansible_user_dir }}/.password-store"
+    accept_hostkey: true
 
 - name: Pass | Create .gpg dir
   ansible.builtin.file:
