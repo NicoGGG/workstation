@@ -8,6 +8,7 @@ default_roles:
   - go
   - nodejs
   - python
+  - docker
   - neovim
   - zsh
   - lazygit
