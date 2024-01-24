@@ -8,7 +8,6 @@
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/Obsidian"
     state: directory
-    recurse: true
     mode: "0755"
   register: obsidian_dir
 
@@ -28,12 +27,13 @@
     src: "{{ obsidian_app_image_path }}"
     path: "{{ ansible_user_dir }}/.local/bin/obsidian"
     state: link
+  register: obsidian_bin
 
 - name: Obsidian | Copy icon
   ansible.builtin.copy:
     src: obsidian-icon.png
     dest: "{{ obsidian_dir.path }}/obsidian-icon.png"
-    mode: "0664"
+    mode: "0644"
   register: obsidian_icon
 
 - name: Obsidian | Set obsidian_icon_dest
@@ -45,6 +45,12 @@
     src: obsidian.desktop.j2
     dest: "{{ ansible_user_dir }}/.local/share/applications/obsidian.desktop"
     mode: "0755"
+
+- name: Obsidian | Set Obsidian to start at launch
+  ansible.builtin.template:
+    src: obsidian.autostart.j2
+    dest: "{{ ansible_user_dir }}/.config/autostart/obsidian.desktop"
+    mode: "0644"
 
 ###########################################################################
 ### This base config folder content needs to be copied to the .obsidian ###
