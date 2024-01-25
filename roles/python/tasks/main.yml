@@ -14,6 +14,7 @@
     state: present
   loop:
     - bpytop
+    - httpie
     - shell-gpt==0.9.0
 
 - name: "Python | Ensure bpytop directory structure exists"
