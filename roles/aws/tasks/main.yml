@@ -1,0 +1,26 @@
+---
+- name: AWS | Create Folder for Linux Installer
+  ansible.builtin.file:
+    path: /tmp/aws
+    state: directory
+    mode: "0755"
+  register: tmp_aws_dir
+
+- name: AWS | Download Linux Installer
+  ansible.builtin.get_url:
+    url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    dest: "{{ tmp_aws_dir.path }}"
+    mode: "0755"
+  register: aws_installer_zip
+
+- name: AWS | Unzip Installer
+  ansible.builtin.unarchive:
+    src: "{{ aws_installer_zip.dest }}"
+    remote_src: true
+    dest: "{{ tmp_aws_dir.path }}"
+  register: aws_installer_unzip
+
+- name: AWS | Install AWS CLI
+  ansible.builtin.command:
+    cmd: "{{ aws_installer_unzip.dest }}/aws/install"
+  become: true
