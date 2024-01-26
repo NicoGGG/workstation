@@ -18,6 +18,28 @@
     dest: "{{ ansible_user_dir }}/.oh-my-zsh"
     accept_hostkey: true
 
+- name: ZSH | Set Custom Plugins Folder
+  ansible.builtin.set_fact:
+    zsh_custom_plugins_folder: "{{ ansible_user_dir }}/.oh-my-zsh/custom/plugins"
+
+- name: ZSH | Clone zsh-autosuggestion
+  ansible.builtin.git:
+    repo: git@github.com:zsh-users/zsh-autosuggestions.git
+    dest: "{{ zsh_custom_plugins_folder }}/zsh-autosuggestions"
+    accept_hostkey: true
+
+- name: ZSH | Clone zsh-completion
+  ansible.builtin.git:
+    repo: git@github.com:zsh-users/zsh-completions.git
+    dest: "{{ zsh_custom_plugins_folder }}/zsh-completions"
+    accept_hostkey: true
+
+- name: ZSH | Clone fzf-tab-completion
+  ansible.builtin.git:
+    repo: git@github.com:lincheney/fzf-tab-completion.git
+    dest: "{{ zsh_custom_plugins_folder }}/fzf-tab-completion"
+    accept_hostkey: true
+
 - name: ZSH | Copy zshrc
   ansible.builtin.template:
     src: zshrc.j2

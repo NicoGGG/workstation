@@ -78,7 +78,17 @@ plugins=(
     docker-compose
     dotenv
     tmux
+    aws
+    fzf
+    zsh-autosuggestions
+    zsh-completions
 )
+
+autoload -U compinit && compinit # override comp
+
+source $HOME/.oh-my-zsh/custom/plugins/fzf-tab-completion/zsh/fzf-zsh-completion.sh 
+zstyle ':completion:*:*:aws' fzf-search-display true # only aws command completion 
+# zstyle ':completion:*' fzf-search-display true # for all commands
 
 ZSH_TMUX_AUTOSTART=true
 source $ZSH/oh-my-zsh.sh
