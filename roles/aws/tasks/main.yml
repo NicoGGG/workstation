@@ -6,11 +6,17 @@
     mode: "0755"
   register: tmp_aws_dir
 
+- name: Check if the folder exists
+  ansible.builtin.stat:
+    path: /usr/local/aws-cli/v2/current
+  register: aws_cli_installed
+
 - name: AWS | Download Linux Installer
   ansible.builtin.get_url:
     url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
     dest: "{{ tmp_aws_dir.path }}"
     mode: "0755"
+  when: not aws_cli_installed.stat.exists
   register: aws_installer_zip
 
 - name: AWS | Unzip Installer
@@ -18,9 +24,16 @@
     src: "{{ aws_installer_zip.dest }}"
     remote_src: true
     dest: "{{ tmp_aws_dir.path }}"
+  when: not aws_cli_installed.stat.exists
   register: aws_installer_unzip
 
 - name: AWS | Install AWS CLI
   ansible.builtin.command:
     cmd: "{{ aws_installer_unzip.dest }}/aws/install"
+  when: not aws_cli_installed.stat.exists
   become: true
+
+- name: AWS | Install AWS Local CLI
+  ansible.builtin.pip:
+    name:
+      - awscli-local[ver1]

@@ -84,6 +84,7 @@ plugins=(
     zsh-completions
 )
 
+complete -C '/usr/local/bin/aws_completer' awslocal
 autoload -U compinit && compinit # override comp
 
 source $HOME/.oh-my-zsh/custom/plugins/fzf-tab-completion/zsh/fzf-zsh-completion.sh 
