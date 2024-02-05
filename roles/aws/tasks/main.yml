@@ -37,3 +37,8 @@
   ansible.builtin.pip:
     name:
       - awscli-local[ver1]
+
+- name: AWS | Remove AWS Local Windows binary
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.local/bin/awslocal.bat"
+    state: absent

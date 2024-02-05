@@ -19,3 +19,15 @@
 - name: NodeJS | Display version
   ansible.builtin.debug:
     msg: "{{ npm_version.stdout }}"
+
+- name: NodeJS | Install Yarn
+  ansible.builtin.npm:
+    name: yarn
+    global: true
+  become: true
+
+- name: NodeJS | Install TSNode
+  ansible.builtin.npm:
+    name: ts-node
+    global: true
+  become: true

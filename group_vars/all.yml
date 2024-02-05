@@ -16,7 +16,8 @@ default_roles:
   - rust
   - obsidian
   - aws
+  - terraform
 
-node_version: 18
+node_version: 20
 
 git_user_name: "NicoGGG"

@@ -1,0 +1,29 @@
+---
+- name: Terraform | Create tmp install dir
+  ansible.builtin.file:
+    path: /tmp/terraform
+    mode: "0755"
+    state: directory
+  register: terraform_tmp_dir
+
+- name: Terraform | Download CLI Installer
+  ansible.builtin.get_url:
+    url: https://releases.hashicorp.com/terraform/1.7.1/terraform_1.7.1_linux_amd64.zip
+    dest: "{{ terraform_tmp_dir.path }}"
+    mode: "0755"
+  register: terraform_installer_zip
+
+- name: Terraform | Unzip Installer
+  ansible.builtin.unarchive:
+    src: "{{ terraform_installer_zip.dest }}"
+    dest: "{{ terraform_tmp_dir.path }}"
+    remote_src: true
+  register: terraform_unzip_dir
+
+- name: Terraform | Copy bin to /usr/local/bin
+  ansible.builtin.copy:
+    src: "{{ terraform_unzip_dir.dest }}/terraform"
+    dest: /usr/local/bin/terraform
+    remote_src: true
+    mode: "0755"
+  become: true
