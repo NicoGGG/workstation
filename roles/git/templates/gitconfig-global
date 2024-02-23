@@ -1,0 +1,10 @@
+[init]
+	defaultBranch = main
+[user]
+	email = {{ git_user_email }}
+	name = {{ git_user_name }}
+[core]
+	autocrlf = input
+
+[includeIf "gitdir:~/Workspace/Equidia/"]
+    path = ~/Workspace/Equidia/.gitconfig

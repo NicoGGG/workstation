@@ -1,0 +1,3 @@
+[user]
+    email = {{ git_pro_email }}
+    name = Nico Guelfi

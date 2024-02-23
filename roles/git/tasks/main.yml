@@ -8,27 +8,14 @@
 - name: Git | Include secret vars
   ansible.builtin.include_vars: secret.yml
 
-- name: "Git | Set init.defaultBranch"
-  community.general.git_config:
-    name: init.defaultBranch
-    scope: global
-    value: main
+- name: Git | Copy global template
+  ansible.builtin.template:
+    src: gitconfig-global
+    dest: "{{ ansible_user_dir }}/.gitconfig"
+    mode: "0600"
 
-- name: "Git | Set user.email"
-  community.general.git_config:
-    name: user.email
-    scope: global
-    value: "{{ git_user_email }}"
-  no_log: true
-
-- name: "Git | Set user.name"
-  community.general.git_config:
-    name: user.name
-    scope: global
-    value: "{{ git_user_name }}"
-
-- name: Git | Set core.autocrlf
-  community.general.git_config:
-    name: core.autocrlf
-    scope: global
-    value: input
+- name: Git | Copy equidia template
+  ansible.builtin.template:
+    src: gitconfig-equidia
+    dest: "{{ ansible_user_dir }}/Workspace/Equidia/.gitconfig"
+    mode: "0600"
