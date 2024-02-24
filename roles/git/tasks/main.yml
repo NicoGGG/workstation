@@ -14,6 +14,13 @@
     dest: "{{ ansible_user_dir }}/.gitconfig"
     mode: "0600"
 
+- name: Git | Create Equidia Workspace
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/Workspace/Equidia"
+    state: directory
+    mode: "0755"
+    recurse: true
+
 - name: Git | Copy equidia template
   ansible.builtin.template:
     src: gitconfig-equidia
