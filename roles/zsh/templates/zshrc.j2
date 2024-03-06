@@ -76,6 +76,7 @@ plugins=(
     git
     docker
     docker-compose
+    terraform
     dotenv
     tmux
     aws
@@ -129,13 +130,14 @@ alias vim="nvim"
 alias c="clear"
 alias lg="lazygit"
 alias gp="git branch -vv | awk '/: gone]/{print $1}'"
-alias gpy="git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -d"
+alias gpd="git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -d"
+alias gpD="git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D"
 
 # Local nico PATH
 PATH=${PATH}:/home/nico/.local/bin
 
 ## Python venv auto source
-# chpwd is a zsh hook, wich is executed after change directory
+# chpwd is a zsh hook, which is executed after change directory
 # More info: http://zsh.sourceforge.net/Doc/Release/Functions.html
 function chpwd() {
     if [ -z "$VIRTUAL_ENV" ]; then
