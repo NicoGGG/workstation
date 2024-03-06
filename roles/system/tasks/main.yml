@@ -1,11 +1,11 @@
 ---
-- name: System | Update APT Repos and Upgrade APT Packages
-  ansible.builtin.apt:
-    update_cache: true
-    upgrade: safe
-    autoremove: true
-    autoclean: true
-  become: true
+# - name: System | Update APT Repos and Upgrade APT Packages
+#   ansible.builtin.apt:
+#     update_cache: true
+#     upgrade: safe
+#     autoremove: true
+#     autoclean: true
+#   become: true
 
 - name: System | Get uname -r variable
   ansible.builtin.shell:
@@ -36,7 +36,6 @@
       - ripgrep
       - bat
   become: true
-
 
 - name: System | Install psutil
   ansible.builtin.pip:
