@@ -31,3 +31,16 @@
     src: bpytop.conf
     dest: ~/.config/bpytop/bpytop.conf
     mode: "0644"
+
+- name: Python | Install pipx
+  ansible.builtin.apt:
+    name:
+      - pipx
+    state: present
+  become: true
+
+- name: Python | Install poetry with pipx
+  community.general.pipx:
+    name: poetry
+    python: python3
+    state: present
