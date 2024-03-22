@@ -21,9 +21,10 @@
     state: directory
   become: true
 
-- name: Neovim | Git clone/pull neovim latest
+- name: Neovim | Git clone/pull neovim {{ neovim_version }}
   ansible.builtin.git:
     repo: git@github.com:neovim/neovim.git
+    version: "{{ neovim_version }}"
     dest: /opt/neovim
     force: true
     accept_hostkey: true
@@ -34,6 +35,7 @@
     chdir: "/opt/neovim"
     target: install
   become: true
+  when: neovim_repo.changed
 
 - name: Neovim | Get config from my neovim repo
   ansible.builtin.git:

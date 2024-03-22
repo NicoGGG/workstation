@@ -20,5 +20,6 @@ default_roles:
   - zoxide
 
 node_version: 20
+neovim_version: v0.9.5
 
 git_user_name: "NicoGGG"
