@@ -1,0 +1,4 @@
+- name: Zoxide | Install with crate
+  community.general.cargo:
+    name: zoxide
+    locked: true
