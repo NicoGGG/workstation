@@ -1,11 +1,9 @@
 ---
-# - name: System | Update APT Repos and Upgrade APT Packages
-#   ansible.builtin.apt:
-#     update_cache: true
-#     upgrade: safe
-#     autoremove: true
-#     autoclean: true
-#   become: true
+- name: System | Update APT Repos and Upgrade APT Packages
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: safe
+  become: true
 
 - name: System | Get uname -r variable
   ansible.builtin.shell:
@@ -65,7 +63,8 @@
 - name: System | Create Background Image folder
   ansible.builtin.file:
     dest: "~/Pictures/Background"
-    recurse: true
+    state: directory
+    mode: "0755"
   register: background_image_folder
 
 - name: System | Copy Desktop Background Image

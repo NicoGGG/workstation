@@ -8,14 +8,15 @@
 - name: XFCE | Create XFCE config folder
   ansible.builtin.file:
     state: directory
-    recurse: true
+    mode: "0755"
     dest: "{{ ansible_user_dir }}/.config/xfce4/terminal/"
   register: xfce_config
 
 - name: System | Create Background Image folder
   ansible.builtin.file:
     dest: "{{ ansible_user_dir }}/Pictures/Background"
-    recurse: true
+    state: directory
+    mode: "0755"
   register: background_image_folder
 
 - name: XFCE | Set fact for xfce config directory

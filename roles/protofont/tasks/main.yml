@@ -15,7 +15,7 @@
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/.local/share/fonts/"
     state: directory
-    recurse: true
+    mode: "0755"
 
 - name: Protofont | Unzip Proto font in ~/.local/share/fonts
   ansible.builtin.unarchive:

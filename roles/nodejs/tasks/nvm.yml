@@ -3,7 +3,6 @@
   ansible.builtin.file:
     dest: /tmp/nvm
     state: directory
-    recurse: true
     mode: "0755"
   register: nvm_tmp_dir
 
