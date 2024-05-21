@@ -1,0 +1,6 @@
+- name: Java | Install Java package (Ubuntu/Debian)
+  ansible.builtin.apt:
+    name: "openjdk-{{ java_version }}-jdk"
+    state: present
+    update_cache: true
+  become: true
