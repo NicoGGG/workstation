@@ -24,7 +24,6 @@ default_roles:
 node_version: 20
 neovim_version: v0.10.0
 java_version: 17
-neovim_version: v0.9.5
 lazygit_version: v0.41.0
 
 git_user_name: "NicoGGG"
