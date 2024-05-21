@@ -1,0 +1,5 @@
+- name: Firebase | Install firebase cli tools
+  community.general.npm:
+    name: firebase-tools
+    global: true
+  become: true
