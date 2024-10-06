@@ -1,8 +1,8 @@
 ---
-- name: Gnome - Shortcuts | Application 1
+- name: Gnome - Shortcuts | Close app
   community.general.dconf:
     key: /org/gnome/desktop/wm/keybindings/close
-    value: "['<Super>w']"
+    value: "['<Super>q']"
     state: present
 
 - name: Gnome - Shortcuts | Application 1

@@ -1,0 +1,61 @@
+---
+# sudo add-apt-repository universe -y && sudo add-apt-repository ppa:agornostal/ulauncher -y && sudo apt update && sudo apt install ulauncher
+- name: Ulauncher | Apt add repository
+  ansible.builtin.apt_repository:
+    repo: ppa:agornostal/ulauncher
+    update_cache: true
+    state: present
+  become: true
+
+- name: Ulauncher | Install
+  ansible.builtin.apt:
+    name:
+      - ulauncher
+  become: true
+
+- name: Ulauncher | Unset switch input-source keybind
+  community.general.dconf:
+    key: /org/gnome/desktop/wm/keybindings/switch-input-source
+    value: "['@as []']"
+
+- name: Ulauncher | Set keybind
+  community.general.dconf:
+    key: /org/gnome/settings-daemin/plugins/media-keys/custom-keybinding
+    value: "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0']"
+    state: present
+
+- name: Ulauncher | Set keybind
+  community.general.dconf:
+    key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/name
+    value: "'Ulauncher'"
+    state: present
+
+- name: Ulauncher | Set keybind
+  community.general.dconf:
+    key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/command
+    value: "'ulauncher-toggle'"
+    state: present
+
+- name: Ulauncher | Set keybind
+  community.general.dconf:
+    key: /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/binding
+    value: "'<Super>space'"
+    state: present
+
+- name: Ulauncher | Create theme dir
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/ulauncher/user-themes"
+    state: directory
+    mode: "0755"
+  register: ulauncher_theme
+
+- name: Ulauncher | Download catpuccin theme
+  ansible.builtin.git:
+    repo: git@github.com:catppuccin/ulauncher.git
+    dest: "{{ ulauncher_theme.path }}/{{ theme }}"
+
+- name: Ulauncher | Install catpuccin theme
+  ansible.builtin.command:
+    cmd: python3 install.py
+    chdir: "{{ ulauncher_theme.path }}/{{ theme }}"
+  when: theme == "catpuccin"
