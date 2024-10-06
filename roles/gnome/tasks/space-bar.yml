@@ -1,0 +1,24 @@
+---
+- name: Space Bar | Animation
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/space-bar/behavior/smart-workspace-names"
+    value: false
+    state: present
+
+- name: Space Bar | Dash App Running
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/space-bar/shortcuts/enable-activate-workspace-shortcuts"
+    value: false
+    state: present
+
+- name: Space Bar | Workspace
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/space-bar/shortcuts/enable-move-to-workspace-shortcuts"
+    value: true
+    state: present
+
+- name: Space Bar | Workspace Popup
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/space-bar/shortcuts/open-menu"
+    value: "'@as []'"
+    state: present

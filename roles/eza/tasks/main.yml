@@ -1,0 +1,5 @@
+---
+- name: Eza | Install with crate
+  community.general.cargo:
+    name: eza
+    locked: true

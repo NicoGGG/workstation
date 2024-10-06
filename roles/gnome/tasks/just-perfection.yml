@@ -1,0 +1,24 @@
+---
+- name: Just Perfection | Animation
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/just-perfection/animation"
+    value: "'2'"
+    state: present
+
+- name: Just Perfection | Dash App Running
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/just-perfection/dash-app-running"
+    value: true
+    state: present
+
+- name: Just Perfection | Workspace
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/just-perfection/workspace"
+    value: true
+    state: present
+
+- name: Just Perfection | Workspace Popup
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/just-perfection/workspace-popup"
+    value: false
+    state: present

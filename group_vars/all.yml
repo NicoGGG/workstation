@@ -1,29 +1,36 @@
 default_roles:
   - system
+  - gnome
   - protofont
+  - python
+  - rust
+  - go
+  - nodejs
+  - java
   - xfce
   - ssh
   - pass
   - git
-  - go
-  - nodejs
-  - python
-  - java
   - docker
   - neovim
   - zsh
   - lazygit
+  - lazydocker
   - tmux
-  - rust
   - obsidian
   - aws
   - firebase
   - terraform
   - zoxide
+  - alacritty
+  - eza
 
+theme: catpuccin # choice between: dark_souls / catpuccin
+alacritty_version: v0.13.2
 node_version: 20
 neovim_version: v0.10.0
 java_version: 17
 lazygit_version: v0.41.0
+lazydocker_version: v0.23.3
 
 git_user_name: "NicoGGG"

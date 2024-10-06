@@ -1,0 +1,119 @@
+- name: System | Create Background Image folder
+  ansible.builtin.file:
+    dest: "~/Pictures/Background"
+    state: directory
+    mode: "0755"
+  register: background_image_folder
+
+- name: System | Copy Desktop Background Image
+  ansible.builtin.copy:
+    src: "{{ theme }}.png"
+    dest: "{{ background_image_folder.path }}"
+    mode: "0644"
+  register: background_image
+
+- name: System | Set Background Image uri
+  ansible.builtin.set_fact:
+    background_image_uri: "'file://{{ background_image.dest }}'"
+
+- name: System | Set Desktop Background Image uri
+  community.general.dconf:
+    key: "/org/gnome/desktop/background/picture-uri"
+    value: "{{ background_image_uri }}"
+    state: present
+
+- name: System | Set Desktop Background Image uri-dark
+  community.general.dconf:
+    key: "/org/gnome/desktop/background/picture-uri-dark"
+    value: "{{ background_image_uri }}"
+    state: present
+
+- name: Set background picture-options to zoom
+  community.general.dconf:
+    key: /org/gnome/desktop/background/picture-options/zoom
+    value: true
+    state: present
+
+- name: System | Set Caps Lock to Esc | Set fact value
+  ansible.builtin.set_fact:
+    xkb_options_caps_to_esc: "['grp_led:scroll', 'caps:escape_shifted_capslock']"
+
+- name: System | Set Caps Lock to Esc | Set setting value
+  community.general.dconf:
+    key: "/org/gnome/desktop/input-sources/xkb-options"
+    value: "{{ xkb_options_caps_to_esc }}"
+    state: present
+
+- name: Gnome | Center new window
+  community.general.dconf:
+    key: "/org/gnome/mutter/center-new-windows"
+    value: true
+    state: present
+
+- name: Gnome | Workspaces only on primary
+  community.general.dconf:
+    key: "/org/gnome/mutter/workspaces-only-on-primary"
+    value: true
+    state: present
+
+- name: Set color scheme to prefer-dark
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/color-scheme"
+    value: "'prefer-dark'"
+    state: present
+
+- name: Set cursor theme to Yaru
+  community.general.dconf:
+    key: /org/gnome/desktop/interface/cursor-theme
+    value: "'Yaru'"
+    state: present
+
+- name: Set GTK theme
+  community.general.dconf:
+    key: /org/gnome/desktop/interface/gtk-theme
+    value: "'Yaru-magenta-dark'"
+    state: present
+
+- name: Set icon theme
+  community.general.dconf:
+    key: /org/gnome/desktop/interface/icon-theme
+    value: "'Yaru-magenta'"
+    state: present
+
+- name: Gnome | 0xProto Font
+  community.general.dconf:
+    key: /org/gnome/desktop/interface/monospace-font-name
+    value: "'0xProto Nerd Font Mono'"
+    state: present
+
+- name: Gnome | Weekdate
+  community.general.dconf:
+    key: /org/gnome/desktop/calendar/show-weekdate
+    value: true
+    state: present
+
+- name: Gnome | Disable desktop animations
+  community.general.dconf:
+    key: /org/gnome/desktop/interface/enable-animations
+    value: false
+    state: present
+
+- name: Gnome | Dynamic workspaces
+  community.general.dconf:
+    key: /org/gnome/mutter/dynamic-workspaces
+    value: false
+    state: present
+
+- name: Gnome | Num workspaces
+  community.general.dconf:
+    key: /org/gnome/desktop/vm/preferences/num-workspaces
+    value: "'4'"
+    state: present
+
+- name: Gnome | shortcuts
+  ansible.builtin.import_tasks:
+    file: shortcuts.yml
+
+- name: Gnome | extensions
+  ansible.builtin.import_tasks:
+    file: extensions.yml

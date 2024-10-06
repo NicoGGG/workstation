@@ -1,0 +1,42 @@
+---
+- name: Tactile | Col 0
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/tactile/col-0"
+    value: "'1'"
+    state: present
+
+- name: Tactile | Col 1
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/tactile/col-1"
+    value: "'2'"
+    state: present
+
+- name: Tactile | Col 2
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/tactile/col-2"
+    value: "'1'"
+    state: present
+
+- name: Tactile | Col 3
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/tactile/col-3"
+    value: "'0'"
+    state: present
+
+- name: Tactile | Row 0
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/tactile/row-0"
+    value: "'1'"
+    state: present
+
+- name: Tactile | Row 1
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/tactile/row-1"
+    value: "'1'"
+    state: present
+
+- name: Tactile | Row 0
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/tactile/gap-size"
+    value: "'32'"
+    state: present

@@ -1,0 +1,66 @@
+---
+- name: Gnome - Shortcuts | Application 1
+  community.general.dconf:
+    key: /org/gnome/desktop/wm/keybindings/close
+    value: "['<Super>w']"
+    state: present
+
+- name: Gnome - Shortcuts | Application 1
+  community.general.dconf:
+    key: /org/gnome/shell/keybindings/switch-to-application-1
+    value: "['<Alt>1']"
+    state: present
+
+- name: Gnome - Shortcuts | Application 2
+  community.general.dconf:
+    key: /org/gnome/shell/keybindings/switch-to-application-2
+    value: "['<Alt>2']"
+    state: present
+
+- name: Gnome - Shortcuts | Application 3
+  community.general.dconf:
+    key: /org/gnome/shell/keybindings/switch-to-application-3
+    value: "['<Alt>3']"
+    state: present
+
+- name: Gnome - Shortcuts | Application 4
+  community.general.dconf:
+    key: /org/gnome/shell/keybindings/switch-to-application-4
+    value: "['<Alt>4']"
+    state: present
+
+- name: Gnome - Shortcuts | Application 5
+  community.general.dconf:
+    key: /org/gnome/shell/keybindings/switch-to-application-5
+    value: "['<Alt>5']"
+    state: present
+
+- name: Gnome - Shortcuts | Application 6
+  community.general.dconf:
+    key: /org/gnome/shell/keybindings/switch-to-application-6
+    value: "['<Alt>6']"
+    state: present
+
+- name: Gnome - Shortcuts | Workspace 1
+  community.general.dconf:
+    key: /org/gnome/desktop/wm/keybindings/switch-to-workspace-1
+    value: "['<Super>1']"
+    state: present
+
+- name: Gnome - Shortcuts | Workspace 2
+  community.general.dconf:
+    key: /org/gnome/desktop/wm/keybindings/switch-to-workspace-2
+    value: "['<Super>2']"
+    state: present
+
+- name: Gnome - Shortcuts | Workspace 3
+  community.general.dconf:
+    key: /org/gnome/desktop/wm/keybindings/switch-to-workspace-3
+    value: "['<Super>3']"
+    state: present
+
+- name: Gnome - Shortcuts | Workspace 4
+  community.general.dconf:
+    key: /org/gnome/desktop/wm/keybindings/switch-to-workspace-4
+    value: "['<Super>4']"
+    state: present

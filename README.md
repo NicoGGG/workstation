@@ -1,6 +1,6 @@
 # My workstation config
 
-(inspired by [TechDufus .dotfiles](https://github.com/techdufus/dotfiles) repo)
+(inspired by [TechDufus .dotfiles](https://github.com/techdufus/dotfiles) and [Omakub](https://omakub.org/))
 
 ## Install with ansible
 

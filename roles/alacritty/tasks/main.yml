@@ -1,0 +1,60 @@
+---
+- name: Alacritty | Install prerequisites
+  ansible.builtin.apt:
+    name:
+      - cmake
+      - pkg-config
+      - libfreetype6-dev
+      - libfontconfig1-dev
+      - libxcb-xfixes0-dev
+      - libxkbcommon-dev
+  become: true
+
+- name: Alacritty | Clone Github repo
+  ansible.builtin.git:
+    repo: git@github.com:alacritty/alacritty.git
+    dest: /tmp/alacritty
+    version: "{{ alacritty_version }}"
+  register: alacritty
+
+- name: Alacritty | Build from source
+  community.general.cargo:
+    name: alacritty
+    directory: /tmp/alacritty/alacritty
+
+- name: Alacritty | Copy bin to user PATH
+  ansible.builtin.copy:
+    remote_src: true
+    src: "/tmp/alacritty/target/release/alacritty"
+    dest: "{{ ansible_user_dir }}/.local/bin/alacritty"
+    mode: "0755"
+  become: true
+  register: alacritty_bin
+
+- name: Alacritty | Copy logo
+  ansible.builtin.copy:
+    remote_src: true
+    src: "/tmp/alacritty/extra/logo/alacritty-term.svg"
+    dest: /usr/share/pixmaps/Alacritty.svg
+    mode: "0755"
+  become: true
+
+- name: Alacritty | Copy desktop file
+  ansible.builtin.copy:
+    remote_src: true
+    src: "/tmp/alacritty/extra/linux/Alacritty.desktop"
+    dest: "{{ ansible_user_dir }}/.local/share/applications"
+    mode: "0644"
+
+- name: Alacritty | Create config dir
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/alacritty"
+    state: directory
+    mode: "0755"
+  register: alacritty_dir
+
+- name: Alacritty | Copy config file
+  ansible.builtin.copy:
+    src: alacritty.toml
+    dest: "{{ alacritty_dir.path }}"
+    mode: "0644"

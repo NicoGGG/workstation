@@ -1,0 +1,87 @@
+---
+# Turn off default Ubuntu extensions
+# gnome-extensions disable tiling-assistant@ubuntu.com
+# gnome-extensions disable ubuntu-appindicators@ubuntu.com
+# gnome-extensions disable ubuntu-dock@ubuntu.com
+# gnome-extensions disable ding@rastersoft.com
+- name: Gnome extensions | Disable default ubuntu extensions
+  ansible.builtin.shell:
+    cmd: |
+      gnome-extensions disable tiling-assistant@ubuntu.com
+      gnome-extensions disable ubuntu-appindicators@ubuntu.com
+      gnome-extensions disable ubuntu-dock@ubuntu.com
+      gnome-extensions disable ding@rastersoft.com
+
+- name: Gnome extensions | Install tactile
+  ansible.builtin.shell:
+    cmd: |
+      gext install tactile@lundal.io
+      gext install just-perfection-desktop@just-perfection
+      gext install space-bar@luchrioh
+      gext install AlphabeticalAppGrid@stuarthayhurst
+      gext install blur-my-shell@aunetx
+
+- name: Gnome extension - tactile | Copy gsettings schema
+  ansible.builtin.copy:
+    remote_src: true
+    src: "{{ ansible_user_dir }}/.local/share/gnome-shell/extensions/tactile@lundal.io/schemas/org.gnome.shell.extensions.tactile.gschema.xml"
+    dest: /usr/share/glib-2.0/schemas/
+    mode: "0644"
+  become: true
+
+- name: Gnome extension - just-perfection | Copy gsettings schema
+  ansible.builtin.copy:
+    remote_src: true
+    src: "{{ ansible_user_dir }}/.local/share/gnome-shell/extensions/just-perfection-desktop@just-perfection/schemas/org.gnome.shell.extensions.just-perfection.gschema.xml"
+    dest: /usr/share/glib-2.0/schemas/
+    mode: "0644"
+  become: true
+
+- name: Gnome extension - space-bar | Copy gsettings schema
+  ansible.builtin.copy:
+    remote_src: true
+    src: "{{ ansible_user_dir }}/.local/share/gnome-shell/extensions/space-bar@luchrioh/schemas/org.gnome.shell.extensions.space-bar.gschema.xml"
+    dest: /usr/share/glib-2.0/schemas/
+    mode: "0644"
+  become: true
+
+- name: Gnome extension - AlphabeticalAppGrid | Copy gsettings schema
+  ansible.builtin.copy:
+    remote_src: true
+    src: "{{ ansible_user_dir }}/.local/share/gnome-shell/extensions/AlphabeticalAppGrid@stuarthayhurst/schemas/org.gnome.shell.extensions.AlphabeticalAppGrid.gschema.xml"
+    dest: /usr/share/glib-2.0/schemas/
+    mode: "0644"
+  become: true
+
+- name: Gnome extension - Blur My Shell | Copy gsettings schema
+  ansible.builtin.copy:
+    remote_src: true
+    src: "{{ ansible_user_dir }}/.local/share/gnome-shell/extensions/blur-my-shell@aunetx/schemas/org.gnome.shell.extensions.blur-my-shell.gschema.xml"
+    dest: /usr/share/glib-2.0/schemas/
+    mode: "0644"
+  become: true
+
+- name: Gnome extensions | Compile schemas
+  ansible.builtin.command:
+    cmd: glib-compile-schemas /usr/share/glib-2.0/schemas/
+  become: true
+
+- name: Gnome extensions | Configure tactile
+  ansible.builtin.import_tasks:
+    file: tactile.yml
+
+- name: Gnome extensions | Configure just-perfection
+  ansible.builtin.import_tasks:
+    file: just-perfection.yml
+
+- name: Gnome extensions | Configure space-bar
+  ansible.builtin.import_tasks:
+    file: space-bar.yml
+
+- name: Gnome extensions | Configure AlphabeticalAppGrid
+  ansible.builtin.import_tasks:
+    file: alphabetical-app-grid.yml
+
+- name: Gnome extensions | Configure blur-my-shell
+  ansible.builtin.import_tasks:
+    file: blur-my-shell.yml

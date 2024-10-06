@@ -40,6 +40,13 @@
     dest: "{{ zsh_custom_plugins_folder }}/fzf-tab-completion"
     accept_hostkey: true
 
+- name: ZSH | Copy alias
+  ansible.builtin.template:
+    src: aliases.j2
+    dest: "{{ ansible_user_dir }}/.aliases"
+    mode: "0600"
+  register: alias_file
+
 - name: ZSH | Copy zshrc
   ansible.builtin.template:
     src: zshrc.j2

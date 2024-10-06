@@ -20,6 +20,8 @@
       - build-essential
       - gnome-tweaks
       - dkms
+      - gpg
+      - gnome-shell-extension-manager
       - "linux-headers-{{ uname }}"
       - jq
       - ninja-build
@@ -39,6 +41,7 @@
   ansible.builtin.pip:
     name:
       - psutil
+      - gnome-extensions-cli
 
 - name: System | Create ~/.local/bin folder
   ansible.builtin.file:
@@ -59,38 +62,3 @@
     dest: "/etc/sudoers.d/{{ ansible_env['USER'] }}"
     mode: "0644"
   become: true
-
-- name: System | Create Background Image folder
-  ansible.builtin.file:
-    dest: "~/Pictures/Background"
-    state: directory
-    mode: "0755"
-  register: background_image_folder
-
-- name: System | Copy Desktop Background Image
-  ansible.builtin.copy:
-    src: dark_souls.png
-    dest: "{{ background_image_folder.path }}"
-    mode: "0644"
-  become: true
-  register: background_image
-
-- name: System | Set Background Image uri
-  ansible.builtin.set_fact:
-    background_image_uri: "'file://{{ background_image.dest }}'"
-
-- name: System | Set Desktop Background Image
-  community.general.dconf:
-    key: "/org/gnome/desktop/background/picture-uri-dark"
-    value: "{{ background_image_uri }}"
-    state: present
-
-- name: System | Set Caps Lock to Esc | Set fact value
-  ansible.builtin.set_fact:
-    xkb_options_caps_to_esc: "['grp_led:scroll', 'caps:escape_shifted_capslock']"
-
-- name: System | Set Caps Lock to Esc | Set setting value
-  community.general.dconf:
-    key: "/org/gnome/desktop/input-sources/xkb-options"
-    value: "{{ xkb_options_caps_to_esc }}"
-    state: present

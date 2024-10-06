@@ -1,0 +1,6 @@
+---
+- name: Space Bar | Workspace Popup
+  community.general.dconf:
+    key: "/org/gnome/shell/extensions/alphabetical-app-grid/folder-order-position"
+    value: "'end'"
+    state: present

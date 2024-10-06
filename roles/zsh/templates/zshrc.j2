@@ -113,18 +113,7 @@ fi
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-alias pbcopy="xclip -sel clip"
-alias cat="bat"
-alias catp="bat -p"
-alias top="bpytop"
-alias n="nvim"
-alias nn="nvim -u NONE"
-alias vim="nvim"
-alias c="clear"
-alias lg="lazygit"
-alias gp="git branch -vv | awk '/: gone]/{print $1}'"
-alias gpd="git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -d"
-alias gpD="git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D"
+source {{ alias_file.dest }}
 
 # Local nico PATH
 PATH=${PATH}:/home/nico/.local/bin

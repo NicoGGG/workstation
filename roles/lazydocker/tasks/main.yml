@@ -1,0 +1,27 @@
+---
+- name: LazyDocker | Verify that go is installed and accessible
+  ansible.builtin.command:
+    cmd: /usr/local/go/bin/go version
+  register: go_version_check
+  ignore_errors: true
+
+- name: LazyDocker | Install
+  when: go_version_check.rc == 0
+  block:
+    - name: LazyDocker | install with go
+      ansible.builtin.command:
+        cmd: /usr/local/go/bin/go install github.com/jesseduffield/lazydocker@{{ lazydocker_version }}
+        chdir: "{{ ansible_user_dir }}"
+
+    - name: LazyDocker | Create config dir
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/.config/lazydocker"
+        state: directory
+        mode: "0755"
+      register: lazydocker_config_dir
+
+    - name: LazyDocker | Copy config
+      ansible.builtin.copy:
+        src: config.yml
+        dest: "{{ lazydocker_config_dir.path }}/config.yml"
+        mode: "0644"
