@@ -12,7 +12,7 @@
       gnome-extensions disable ubuntu-dock@ubuntu.com
       gnome-extensions disable ding@rastersoft.com
 
-- name: Gnome extensions | Install tactile
+- name: Gnome extensions | Install extensions
   ansible.builtin.shell:
     cmd: |
       gext install tactile@lundal.io

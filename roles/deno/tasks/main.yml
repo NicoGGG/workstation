@@ -1,0 +1,10 @@
+---
+- name: Deno | Install runtime
+  ansible.builtin.shell:
+    cmd: curl -fsSL https://deno.land/install.sh | sh
+
+- name: Deno | Symlink to .local/bin
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.local/bin/deno"
+    src: "{{ ansible_user_dir }}/.deno/bin/deno"
+    state: link
