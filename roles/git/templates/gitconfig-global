@@ -5,6 +5,5 @@
 	name = {{ git_user_name }}
 [core]
 	autocrlf = input
-
-[includeIf "gitdir:~/Workspace/Equidia/"]
-    path = ~/Workspace/Equidia/.gitconfig
+[fetch]
+    prune = true
