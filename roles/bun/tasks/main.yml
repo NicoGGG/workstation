@@ -1,0 +1,4 @@
+- name: Bun | Install bun
+  community.general.npm:
+    name: bun
+    global: true
