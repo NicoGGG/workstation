@@ -107,7 +107,7 @@
 - name: Gnome | Num workspaces
   community.general.dconf:
     key: /org/gnome/desktop/vm/preferences/num-workspaces
-    value: "'4'"
+    value: "'6'"
     state: present
 
 - name: Gnome | shortcuts

@@ -64,3 +64,15 @@
     key: /org/gnome/desktop/wm/keybindings/switch-to-workspace-4
     value: "['<Super>4']"
     state: present
+
+- name: Gnome - Shortcuts | Workspace 5
+  community.general.dconf:
+    key: /org/gnome/desktop/wm/keybindings/switch-to-workspace-5
+    value: "['<Super>5']"
+    state: present
+
+- name: Gnome - Shortcuts | Workspace 6
+  community.general.dconf:
+    key: /org/gnome/desktop/wm/keybindings/switch-to-workspace-6
+    value: "['<Super>6']"
+    state: present
