@@ -86,6 +86,14 @@
     value: "'0xProto Nerd Font Mono'"
     state: present
 
+- name: Gnome | shortcuts
+  ansible.builtin.import_tasks:
+    file: shortcuts.yml
+
+- name: Gnome | extensions
+  ansible.builtin.import_tasks:
+    file: extensions.yml
+
 - name: Gnome | Weekdate
   community.general.dconf:
     key: /org/gnome/desktop/calendar/show-weekdate
@@ -106,14 +114,6 @@
 
 - name: Gnome | Num workspaces
   community.general.dconf:
-    key: /org/gnome/desktop/vm/preferences/num-workspaces
-    value: "'6'"
+    key: /org/gnome/desktop/wm/preferences/num-workspaces
+    value: "6"
     state: present
-
-- name: Gnome | shortcuts
-  ansible.builtin.import_tasks:
-    file: shortcuts.yml
-
-- name: Gnome | extensions
-  ansible.builtin.import_tasks:
-    file: extensions.yml
