@@ -33,6 +33,8 @@
 - name: Neovim | Run 'install' target as root
   community.general.make:
     chdir: "/opt/neovim"
+    params:
+      CMAKE_BUILD_TYPE: RelWithDebInfo
     target: install
   become: true
   when: neovim_repo.changed
