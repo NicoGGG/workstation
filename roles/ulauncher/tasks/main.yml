@@ -49,13 +49,14 @@
     mode: "0755"
   register: ulauncher_theme
 
-- name: Ulauncher | Download catpuccin theme
+- name: Ulauncher | Download catppuccin theme
   ansible.builtin.git:
     repo: git@github.com:catppuccin/ulauncher.git
     dest: "{{ ulauncher_theme.path }}/{{ theme }}"
+  when: theme == "catppuccin"
 
-- name: Ulauncher | Install catpuccin theme
+- name: Ulauncher | Install catppuccin theme
   ansible.builtin.command:
     cmd: python3 install.py
     chdir: "{{ ulauncher_theme.path }}/{{ theme }}"
-  when: theme == "catpuccin"
+  when: theme == "catppuccin"

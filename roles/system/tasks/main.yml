@@ -37,11 +37,16 @@
       - bat
   become: true
 
-- name: System | Install psutil
-  ansible.builtin.pip:
-    name:
-      - psutil
-      - gnome-extensions-cli
+- name: System | Install gnome-extensions-cli
+  community.general.pipx:
+    name: "{{ item }}"
+    python: python3
+    force: true
+  loop:
+    - gnome-extensions-cli
+    - bpytop
+    - httpie
+    - shell-gpt==0.9.0
 
 - name: System | Create ~/.local/bin folder
   ansible.builtin.file:

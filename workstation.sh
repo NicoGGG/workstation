@@ -32,6 +32,7 @@ if ! dpkg -s git >/dev/null 2>&1; then
     sudo apt-get install -y git 2>&1 > /dev/null
     echo -e "${ARROW} ${GREEN}Git installed!${NC}"
 fi
+
 # Install Ansible
 # check lsb_release -si
 if ! dpkg -s ansible >/dev/null 2>&1; then
@@ -63,10 +64,11 @@ if ! dpkg -s python3-pip >/dev/null 2>&1; then
     sudo apt-get install -y python3-pip 2>&1 > /dev/null
     echo -e "${ARROW} ${GREEN}Python3 Pip installed!${NC}"
 fi
+
 # Check if pip module watchdog is installed
 if ! pip3 list | grep watchdog >/dev/null 2>&1; then
     echo -e "${ARROW} ${CYAN}Installing Python3 Watchdog...${NC}"
-    pip3 install watchdog 2>&1 > /dev/null
+    pip3 install watchdog --break-system-packages 2>&1 > /dev/null
     echo -e "${ARROW} ${GREEN}Python3 Watchdog installed!${NC}"
 fi
 

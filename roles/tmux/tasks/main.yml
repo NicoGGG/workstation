@@ -11,10 +11,11 @@
     dest: ~/.tmux/plugins/tpm
     accept_hostkey: true
 
-- name: Install py libtmux
-  ansible.builtin.pip:
-    name:
-      - libtmux
+# TODO: Should be install as a lib but where ?
+# - name: Install py libtmux
+#   community.general.pipx:
+#     name:
+#       - libtmux
 
 - name: Tmux | Configure tmux
   ansible.builtin.copy:

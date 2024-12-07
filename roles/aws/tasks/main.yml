@@ -34,7 +34,7 @@
   become: true
 
 - name: AWS | Install AWS Local CLI
-  ansible.builtin.pip:
+  community.general.pipx:
     name:
       - awscli-local[ver1]
 
