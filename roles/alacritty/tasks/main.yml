@@ -18,9 +18,9 @@
   register: alacritty
 
 - name: Alacritty | Build from source
-  community.general.cargo:
-    name: alacritty
-    directory: /tmp/alacritty/alacritty
+  ansible.builtin.shell:
+    cmd: cargo build --release
+    chdir: /tmp/alacritty
 
 - name: Alacritty | Copy bin to user PATH
   ansible.builtin.copy:
