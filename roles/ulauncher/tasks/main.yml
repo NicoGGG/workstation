@@ -52,6 +52,7 @@
 - name: Ulauncher | Download catppuccin theme
   ansible.builtin.git:
     repo: git@github.com:catppuccin/ulauncher.git
+    update: false
     dest: "{{ ulauncher_theme.path }}/{{ theme }}"
   when: theme == "catppuccin"
 

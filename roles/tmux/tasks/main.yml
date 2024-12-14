@@ -8,14 +8,15 @@
 - name: Tmux | Install Tmux Plugin Manager
   ansible.builtin.git:
     repo: git@github.com:tmux-plugins/tpm
+    version: 99469c4a9b1ccf77fade25842dc7bafbc8ce9946
     dest: ~/.tmux/plugins/tpm
     accept_hostkey: true
 
-# TODO: Should be install as a lib but where ?
-# - name: Install py libtmux
-#   community.general.pipx:
-#     name:
-#       - libtmux
+- name: Tmux | Install py libtmux
+  ansible.builtin.pip:
+    name:
+      - libtmux
+    break_system_packages: true
 
 - name: Tmux | Configure tmux
   ansible.builtin.copy:
