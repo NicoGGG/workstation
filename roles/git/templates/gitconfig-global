@@ -7,3 +7,5 @@
 	autocrlf = input
 [fetch]
     prune = true
+[pull]
+    rebase = true
