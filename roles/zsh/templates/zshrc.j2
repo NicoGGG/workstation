@@ -186,8 +186,15 @@ bindkey "^g" _frg
 ## Zoxide
 eval "$(zoxide init --cmd cd zsh)"
 
-# Nvm - MUST BE LAST
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# TODO: To install node and elixir with asdf:
+# asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
+# asdf plugin add erlang https://github.com/asdf-vm/asdf-erlang.git
+# asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+# asdf install elixir latest
+# asdf install erlang latest
+# asdf global elixir latest
+# asdf global erlang latest
+# asdf nodejs update-nodebuild
+# asdf nodejs resolve lts --latest-installed | asdf install nodejs
+# asdf nodejs resolve lts --latest-installed | asdf global node
 

@@ -5,9 +5,7 @@ default_roles:
   - protofont
   - rust
   - go
-  - nodejs
-  - deno
-  - bun
+  - asdf
   - java
   - xfce
   - ssh
@@ -22,15 +20,12 @@ default_roles:
   - ulauncher
   - obsidian
   - aws
-  - firebase
   - terraform
   - zoxide
   - alacritty
   - eza
 
 theme: catppuccin # choice between: dark_souls / catppuccin
-alacritty_version: v0.13.2
-node_version: 20
 alacritty_version: v0.14.0
 neovim_version: v0.10.2
 java_version: 17
