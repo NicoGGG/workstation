@@ -1,0 +1,27 @@
+{% if theme == "catppuccin" %}
+import = [
+  "~/.config/alacritty/catppuccin-mocha.toml",
+  # "~/.config/alacritty/catppuccin-macchiato.toml",
+  # "~/.config/alacritty/catppuccin-frappe.toml",
+]
+{% endif %}
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+startup_mode = "Fullscreen"
+padding.x = 16
+padding.y = 14
+decorations = "None"
+opacity = 0.98
+
+[keyboard]
+bindings = [{ key = "F11", action = "ToggleFullscreen" }]
+
+
+[font]
+normal = { family = "0xProto Nerd Font", style = "Regular" }
+bold = { family = "0xProto Nerd Font", style = "Bold" }
+italic = { family = "0xProto Nerd Font", style = "Italic" }
+size = 12
