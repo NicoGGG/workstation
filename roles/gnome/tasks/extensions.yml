@@ -1,9 +1,4 @@
 ---
-# Turn off default Ubuntu extensions
-# gnome-extensions disable tiling-assistant@ubuntu.com
-# gnome-extensions disable ubuntu-appindicators@ubuntu.com
-# gnome-extensions disable ubuntu-dock@ubuntu.com
-# gnome-extensions disable ding@rastersoft.com
 - name: Gnome extensions | Disable default ubuntu extensions
   ansible.builtin.shell:
     cmd: |
@@ -20,6 +15,7 @@
       gext install space-bar@luchrioh
       gext install AlphabeticalAppGrid@stuarthayhurst
       gext install blur-my-shell@aunetx
+      gext install user-theme@gnome-shell-extensions.gcampax.github.com
 
 - name: Gnome extension - tactile | Copy gsettings schema
   ansible.builtin.copy:

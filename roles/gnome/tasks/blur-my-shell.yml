@@ -5,7 +5,7 @@
     value: false
     state: present
 
-- name: Blur My Shell | Lockscree
+- name: Blur My Shell | Lockscreen
   community.general.dconf:
     key: "/org/gnome/shell/extensions/blur-my-shell/lockscreen/blur"
     value: false

@@ -1,0 +1,27 @@
+---
+- name: Gnome theme | Unarchive GTK theme
+  ansible.builtin.unarchive:
+    src: Catppuccin-Dark-BL-LB.zip
+    dest: /tmp
+    mode: "0755"
+
+- name: Gnome theme | Copy GTK theme to .config/gtk-4.0
+  ansible.builtin.copy:
+    src: /tmp/Catppuccin-Dark-BL-LB/Catppuccin-Dark/gtk-4.0/
+    remote_src: true
+    dest: "{{ ansible_user_dir }}/.config/gtk-4.0/"
+    mode: "0755"
+
+- name: Gnome theme | Create .themes dir
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.themes"
+    mode: "0755"
+    state: directory
+  register: theme_dir
+
+- name: Gnome theme | Copy Shell theme
+  ansible.builtin.unarchive:
+    src: Catppuccin-Dark-BL-GS.zip
+    dest: "{{ theme_dir.path }}"
+    mode: "0755"
+# Set the theme manually in Gnome-Tweaks now that it is installed (cannot find a corresponding gsettings key)

@@ -83,8 +83,13 @@
 - name: Gnome | 0xProto Font
   community.general.dconf:
     key: /org/gnome/desktop/interface/monospace-font-name
-    value: "'0xProto Nerd Font Mono'"
+    value: "'0xProto Nerd Font Mono 12'"
     state: present
+
+- name: Gnome | themes
+  ansible.builtin.import_tasks:
+    file: theme.yml
+  when: theme == 'catppuccin'
 
 - name: Gnome | shortcuts
   ansible.builtin.import_tasks:
