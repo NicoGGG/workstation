@@ -19,6 +19,7 @@ default_roles:
   - ulauncher
   - obsidian
   - aws
+  - scaleway
   - terraform
   - zoxide
   - alacritty

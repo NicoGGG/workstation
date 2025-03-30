@@ -1,0 +1,19 @@
+---
+- name: Scaleway | Check cli version
+  ansible.builtin.shell:
+    cmd: "scw --version"
+  failed_when: false # Prevent Ansible from stopping on failure
+  register: scaleway_version
+
+- name: Scaleway | Download cli binary
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/scaleway/scaleway-cli/master/scripts/get.sh
+    dest: /tmp/get.sh
+    mode: "0755"
+  when: scaleway_version.rc != 0
+
+- name: Scaleway | Execute cli install binary
+  ansible.builtin.shell:
+    chdir: /tmp
+    cmd: "./get.sh"
+  when: scaleway_version.rc != 0
