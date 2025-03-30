@@ -27,7 +27,7 @@ default_roles:
 
 theme: catppuccin # choice between: catppuccin only for now. set to "" to skip theme settings
 alacritty_version: v0.14.0
-neovim_version: v0.10.2
+neovim_version: v0.11.0
 java_version: 17
 lazygit_version: v0.41.0
 lazydocker_version: v0.23.3
