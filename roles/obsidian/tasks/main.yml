@@ -13,7 +13,7 @@
 
 - name: Obsidian | Get AppImage
   ansible.builtin.get_url:
-    url: https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.3/Obsidian-1.5.3.AppImage
+    url: https://github.com/obsidianmd/obsidian-releases/releases/download/v{{ obsidian_version }}/Obsidian-{{ obsidian_version }}.AppImage
     dest: "{{ obsidian_dir.path }}"
     mode: "0755"
   register: obsidian_app_image
@@ -45,12 +45,6 @@
     src: obsidian.desktop.j2
     dest: "{{ ansible_user_dir }}/.local/share/applications/obsidian.desktop"
     mode: "0755"
-
-- name: Obsidian | Set Obsidian to start at launch
-  ansible.builtin.template:
-    src: obsidian.autostart.j2
-    dest: "{{ ansible_user_dir }}/.config/autostart/obsidian.desktop"
-    mode: "0644"
 
 ###########################################################################
 ### This base config folder content needs to be copied to the .obsidian ###
